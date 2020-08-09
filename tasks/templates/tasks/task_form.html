@@ -1,0 +1,14 @@
+{% extends "tasks/base.html" %}
+{% load crispy_forms_tags %}
+{% block body %}
+<form method="POST">{% csrf_token %}
+    <fieldset class="form-group">
+        <legend class="border-bottom mb-4">ToDo</legend>
+        {{ form|crispy }}
+    </fieldset>
+    <div class="form-group">
+        <input class="btn btn-info" type="submit" value="Done">
+        <a href="{% url 'todo_list' %}" class="btn btn-sm btn-outline-secondary">Cancel</a>
+    </div>
+</form>
+{% endblock body %}

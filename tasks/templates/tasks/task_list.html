@@ -1,0 +1,43 @@
+{% extends "tasks/base.html" %}
+{% block body %}
+{% if user.is_authenticated %}
+<div class"container">
+    <div class="row mb-4 border-bottom">
+        <div class="col col-sm-offset-3">
+            <span class="todo_title">TODO List</span>
+            <a class="col-auto ml-5 btn btn-sm btn-outline-info" href="{% url 'todo_create' %}">Add TODO</a>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class=container>
+    <div class="row justify-content-md-center mt-4 ml-5">
+        <div class="col col-auto">
+            <a class="btn btn-info" href="{% url 'account_login' %}">Sign In</a> or
+            <a class="btn btn-outline-info" href="{% url 'account_signup' %}">Sign Up</a>
+        </div>
+    </div>
+</div>
+{% endif%}
+{% for task in task_list %}
+
+{% if task.user == user %}
+<div class"container">
+    <div class="row border-bottom">
+        <div class="col col-sm-offset-3">
+            {% if  task.complete == False %}
+            <span>{{ task }}</span>
+            {% else %}
+            <strike>{{ task }}</strike>
+            {% endif %}
+        </div>
+        <div class="col-auto">
+            <a href="{% url 'todo_update' pk=task.id %}" class="col-1">Update</a>
+            <a href="{% url 'todo_delete' pk=task.id %}" class="">Delete</a>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endfor %}
+{% endblock body %}
